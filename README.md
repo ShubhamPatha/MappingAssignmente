@@ -36,7 +36,7 @@ public class StudentController {
 
     }
     @GetMapping("Getstudent/{id}")
-    public Optional<Student> getstudentbyId(String id)
+    public Student getstudentbyId(String id)
     {
         return studentService.getstudentbyid(id);
     }
@@ -50,7 +50,7 @@ public class StudentController {
     public String dltbyid(String id)
     {
 
-    return "done";
+    return studentService.dltbyid(id);
     }
 
 
@@ -62,19 +62,182 @@ public class StudentController {
 ```
 #### LaptopController
    ```
+package com.geekster.mappingprac.controller;
+
+import com.geekster.mappingprac.model.Laptop;
+import com.geekster.mappingprac.model.Student;
+import com.geekster.mappingprac.service.LaptopService;
+import com.geekster.mappingprac.service.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+
+public class LaptopController {
+
+    @Autowired
+    LaptopService laptopService;
+    @PostMapping("Createlaptop")
+    public String  addlaptop(Laptop laptop)
+    {
+        return laptopService.addlaptop(laptop);
+
+    }
+    @GetMapping("Getlaptop/{id}")
+    public Laptop getlaptopbyId(String id)
+    {
+        return laptopService.getlaptopbyid(id);
+    }
+    @PutMapping("Updatelaptop/{id}")
+    public String updatelaptopbyid(String id,Integer price)
+    {
+        return laptopService.updatebylaptopid(id,price);
+
+    }
+    @DeleteMapping("Deletelaptop/{id}")
+    public String dltbyid(String id)
+    {
+
+        return laptopService.dltbyid(id);
+    }
+
+}
 
 ```
 #### CourseController
    ```
+package com.geekster.mappingprac.controller;
+
+import com.geekster.mappingprac.model.Course;
+import com.geekster.mappingprac.model.Laptop;
+import com.geekster.mappingprac.service.CourseService;
+import com.geekster.mappingprac.service.LaptopService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+
+public class CourseController {
+
+    @Autowired
+    CourseService courseService;
+    @PostMapping("CreateCourse")
+    public String  addlaptop(Course course)
+    {
+        return courseService.addcourse(course);
+
+    }
+    @GetMapping("Getcourse/{id}")
+    public Course getstudentbyId(String id)
+    {
+        return courseService.getcoursebyid(id);
+    }
+    @PutMapping("Updatecourse/{id}")
+    public String updatestudbyid(String id,String duration)
+    {
+        return courseService.updatebycourseid(id,duration);
+
+    }
+    @DeleteMapping("Deletecourse/{id}")
+    public String dltbyid(String id)
+    {
+
+        return courseService.dltbyid(id);
+    }
+}
 
 ```
 #### AddressController
    ```
+package com.geekster.mappingprac.controller;
+
+import com.geekster.mappingprac.model.Book;
+import com.geekster.mappingprac.model.Laptop;
+import com.geekster.mappingprac.service.BookService;
+import com.geekster.mappingprac.service.LaptopService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+
+public class BookController {
+    @Autowired
+    BookService bookService;
+    @PostMapping("Createbook")
+    public String  addbook(Book book)
+    {
+        return bookService.addbook(book);
+
+    }
+    @GetMapping("Getbook/{id}")
+    public Book getlbookbyId(String id)
+    {
+        return bookService.getbookbyid(id);
+    }
+    @PutMapping("Updatebok/{id}")
+    public String updatebookbyid(String id,String  pri)
+    {
+        return bookService.updatebybookid(id,pri);
+
+    }
+    @DeleteMapping("Deletebook/{id}")
+    public String dltbyid(String id)
+    {
+
+        return bookService.dltbyid(id);
+    }
+
+}
+
 
 ```
 #### BookController
    
    ```
+package com.geekster.mappingprac.controller;
+
+import com.geekster.mappingprac.Repos.IaddressRepo;
+import com.geekster.mappingprac.model.Address;
+import com.geekster.mappingprac.model.Laptop;
+import com.geekster.mappingprac.service.AddressService;
+import com.geekster.mappingprac.service.LaptopService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+
+public class AddressController {
+    @Autowired
+    AddressService addressService;
+    @PostMapping("CreateAddress")
+    public String  addaddress(Address address)
+    {
+        return addressService.addaddress(address);
+
+    }
+    @GetMapping("GetAddress/{id}")
+    public Address getlaptopbyId(String id)
+    {
+        return addressService.getAddressbyid(id);
+    }
+    @PutMapping("UpdateAddress/{id}")
+    public String updateaddressbyid(String id,Address addr)
+    {
+        return addressService.updatebyaddressid(id,addr);
+
+    }
+    @DeleteMapping("Deletelaptop/{id}")
+    public String dltbyid(String id)
+    {
+
+        return addressService.dltbyid(id);
+    }
+
+}
 
 ```
 
@@ -239,21 +402,32 @@ public class Student {
 package com.geekster.mappingprac.Repos;
 
 import com.geekster.mappingprac.model.Address;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 public interface IaddressRepo  extends CrudRepository<Address, String> {
+
+    @Query(value = "Select * from Address WHERE addressId = 'id'" ,nativeQuery = true)
+    Address findfirstbyid(String id);
 }
 
 
 ```
 #### IbookRepo
-  ```
-package com.geekster.mappingprac.Repos;
+  ```package com.geekster.mappingprac.Repos;
 
 import com.geekster.mappingprac.model.Book;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 public interface IbookRepo extends CrudRepository<Book, String> {
+    @Query(value = "Select * from Book WHERE book_ID = 'id'" ,nativeQuery = true)
+    Book findfirstbyid(String id);
+
+    @Modifying
+    @Query(value = "UPDATE Book SET price ='pri' WHERE book_ID = 'id'" ,nativeQuery = true)
+    Book updatebyid(String id, String pri);
 }
 
 
@@ -263,10 +437,21 @@ public interface IbookRepo extends CrudRepository<Book, String> {
 package com.geekster.mappingprac.Repos;
 
 import com.geekster.mappingprac.model.Course;
+import com.geekster.mappingprac.model.Laptop;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 public interface IcourseRepo extends CrudRepository<Course,String> {
+    @Query(value = "Select * from Course WHERE course_ID = 'id'" ,nativeQuery = true)
+    Course findfirstbyid(String id);
+
+    @Modifying
+    @Query(value = "UPDATE Course SET duration ='duration' WHERE course_ID = 'id'" ,nativeQuery = true)
+
+    Laptop updatebyid(String id, String duration);
 }
+
 
 
 
@@ -276,10 +461,20 @@ public interface IcourseRepo extends CrudRepository<Course,String> {
 package com.geekster.mappingprac.Repos;
 
 import com.geekster.mappingprac.model.Laptop;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 public interface IlaptopRep extends CrudRepository<Laptop, String> {
+    @Query(value = "Select * from Laptop WHERE lap_ID = 'id'" ,nativeQuery = true)
+    Laptop findfirstbyid(String id);
+
+
+    @Modifying
+    @Query(value = "UPDATE Laptop SET price ='price' WHERE lap_ID = 'id'" ,nativeQuery = true)
+    Laptop updatebyid(String id, Integer price);
 }
+
 
 
 ```
@@ -299,6 +494,8 @@ public interface IstudentRepo extends CrudRepository<Student,String> {
     void updatebystudid(String id, String phone);
 
 
+    @Query(value = "Select * from Student WHERE stud_ID = 'id'" ,nativeQuery = true)
+    Student findfirtstbyid(String id);
 }
 
 ```
@@ -316,6 +513,7 @@ import com.geekster.mappingprac.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -343,8 +541,12 @@ public class StudentService {
         return "Address added successfully";
     }
 
-    public Optional<Student> getstudentbyid(String id) {
-       return istudentRepo.findById(id);
+    public Student getstudentbyid(String id) {
+
+
+        Student stu= istudentRepo.findfirtstbyid(id);
+        return  stu;
+
     }
 
     public String updatebystudid(String id,String phone) {
@@ -353,27 +555,231 @@ public class StudentService {
     }
 
 
+    public String dltbyid(String id) {
+    Student stu= istudentRepo.findfirtstbyid(id);
+if(stu==null)
+{
+
+    return "Item not found";
+}else {
+
+    istudentRepo.delete(stu);
+    return "Item deleted";
+
 }
+
+    }
+}
+
 
 
 ```
 #### LaptopService
   ``` 
 
+package com.geekster.mappingprac.service;
+
+import com.geekster.mappingprac.Repos.IlaptopRep;
+import com.geekster.mappingprac.Repos.IstudentRepo;
+import com.geekster.mappingprac.model.Address;
+import com.geekster.mappingprac.model.Laptop;
+import com.geekster.mappingprac.model.Student;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+@Service
+public class LaptopService {
+    @Autowired
+    IlaptopRep ilaptopRep;
+    @Autowired
+    IstudentRepo istudentRepo;
+    public String addlaptop(Laptop laptop) {
+        Student student= laptop.getStudent();
+        Optional<Student> list=istudentRepo.findById(student.getStud_ID());
+
+
+
+        if(list.isEmpty()){
+            return "Address cannot be added";
+        }
+
+        laptop.setStudent(list.get());
+
+
+        ilaptopRep.save(laptop);
+        return "Added";
+    }
+
+    public Laptop getlaptopbyid(String id) {
+
+        return ilaptopRep.findfirstbyid(id);
+
+    }
+
+
+    public String updatebylaptopid(String id, Integer price) {
+    Laptop lap=ilaptopRep.updatebyid(id,price);
+    return "updated";
+    }
+
+    public String dltbyid(String id) {
+        Laptop lap=ilaptopRep.findfirstbyid(id);
+        ilaptopRep.delete(lap);
+        return "deleted";
+    }
+}
 
 ```
 
 #### CourseService
   ```
+package com.geekster.mappingprac.service;
+
+import com.geekster.mappingprac.Repos.IcourseRepo;
+import com.geekster.mappingprac.Repos.IlaptopRep;
+import com.geekster.mappingprac.Repos.IstudentRepo;
+import com.geekster.mappingprac.model.Course;
+import com.geekster.mappingprac.model.Laptop;
+import com.geekster.mappingprac.model.Student;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class CourseService {
+    @Autowired
+    IstudentRepo istudentRepo;
+    @Autowired
+    IcourseRepo icourseRepo;
+
+    public String addcourse(Course course) {
+
+        List<Student> student= course.getStudent();
+
+
+
+        course.setStudent(student);
+
+
+        icourseRepo.save(course);
+        return "Added";
+    }
+
+    public Course getcoursebyid(String id) {
+
+        return icourseRepo.findfirstbyid(id);
+    }
+
+    public String updatebycourseid(String id, String duration) {
+
+        Laptop lap=icourseRepo.updatebyid(id,duration);
+        return "updated";
+    }
+
+    public String dltbyid(String id) {
+
+        Course cour=icourseRepo.findfirstbyid(id);
+        icourseRepo.delete(cour);
+        return "deleted";
+    }
+}
+
 
 ```
 #### BookService
   ``` 
+package com.geekster.mappingprac.service;
+
+import com.geekster.mappingprac.Repos.IbookRepo;
+import com.geekster.mappingprac.Repos.IstudentRepo;
+import com.geekster.mappingprac.model.Book;
+import com.geekster.mappingprac.model.Laptop;
+import com.geekster.mappingprac.model.Student;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Optional;
+
+public class BookService {
+    @Autowired
+    IbookRepo ibookRepo;
+            @Autowired
+    IstudentRepo istudentRepo;
+    public String addbook(Book book) {
+        Student student= book.getStudent();
+        Optional<Student> list=istudentRepo.findById(student.getStud_ID());
+
+
+
+        if(list.isEmpty()){
+            return "Address cannot be added";
+        }
+
+        book.setStudent(list.get());
+
+
+        ibookRepo.save(book);
+        return "Added";
+    }
+
+    public Book getbookbyid(String id) {
+        return ibookRepo.findfirstbyid(id);
+    }
+
+    public String updatebybookid(String id, String pri) {
+        Book book=ibookRepo.updatebyid(id,pri);
+        return "updated";
+    }
+
+    public String dltbyid(String id) {
+        Book book=ibookRepo.findfirstbyid(id);
+        ibookRepo.delete(book);
+        return "deleted";
+    }
+}
 
 ```
 
 #### AddressService
   ``` 
+package com.geekster.mappingprac.service;
+
+import com.geekster.mappingprac.Repos.IaddressRepo;
+import com.geekster.mappingprac.model.Address;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class AddressService {
+    @Autowired
+    IaddressRepo iaddressRepo;
+    public String addaddress(Address address) {
+        iaddressRepo.save(address);
+return "updated";
+    }
+
+    public Address getAddressbyid(String id) {
+    return  iaddressRepo.findfirstbyid(id);
+
+    }
+
+    public String updatebyaddressid(String id, Address addr) {
+      Address adrr= iaddressRepo.findfirstbyid(id);
+      iaddressRepo.save(adrr);
+      return "updated";
+
+    }
+
+    public String dltbyid(String id) {
+        Address adr=iaddressRepo.findfirstbyid(id);
+        iaddressRepo.delete(adr);
+        return "deleted";
+
+    }
+}
 
 ```
 
